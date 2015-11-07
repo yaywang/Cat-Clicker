@@ -65,33 +65,6 @@
         var formattedHTMLcatDiv = '<div class="cat"><h1 id = "count-display" > 0 </h1>' + HTMLcatName + formattedHTMLcatImg +
             '</div>';
 
-    <script>
-    var cats = [{
-        'name': 'alonzo',
-        'alt': 'the cat Alonzo sleeps on  adining table'
-    }, {
-        'name': 'electra',
-        'alt': 'the cat Electra on duty near the gate'
-    }, {
-        'name': 'endow',
-        'alt': 'the cat Endow eats with two other cats'
-    }, {
-        'name': 'jemima',
-        'alt': 'the cat Endow stares right into another cat'
-    }, {
-        'name': 'jessie',
-        'alt': 'the cat Jessie on bookshelf'
-    }];
-
-    cats.HTMLcatImg = 'img src="images/cat-720.jpg" srcset="images/cat-360.jpg 360w, images/cat-720.jpg 720w, images/cat-1440.jpg 1440w, images/cat-2880.jpg 2880w, images/cat-7360.jpg 7360w" sizes="(max-device-width: 480px) 90vw, 40vw" id="cat-img"';
-
-    for (var i = 0; i < cats.length; i++) {
-        var formattedHTMLcatImg = cats.HTMLcatImg.replace(/cat/g, cats[i].name) + ' alt="' + cats[i].alt + '"';
-        var formattedHTMLcatDiv = '<div class="cat"><h1 id = "count-display" > 0 </h1><' + formattedHTMLcatImg +
-            '></div>';
-        $('body').append(formattedHTMLcatDiv);
-    }
-
     $('.cat').each(function() {
         var img = $(this).children('#cat-img');
         var countDisplay = $(this).children('#count-display');
