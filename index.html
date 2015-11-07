@@ -1,79 +1,27 @@
 <!-- TODO: make sure that srcset doesn't have strange behavior -->
+<!-- TODO: make the onpage nav work -->
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Cat Clicker</title>
-    <style>
-    .cat {
-        width: 40%;
-        display: inline-block;
-        margin-left: 4%;
-        margin-right: 4%;
-    }
-
-    h1 {
-        text-align: center;
-        font-family: sans-serif;
-    }
-
-    img {
-        width: 100%;
-    }
-
-    @media (max-device-width: 480px) and (orientation: portrait) {
-        .cat {
-            width: 90%;
-            display: block;
-            margin: auto;
-            margin-bottom: 4%;
-        }
-    }
-    </style>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <title>Cat Clicker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 
 <body>
-    <div class="nav">
+  <div class="container">
+    <div class="nav-button">
+      <div class="nav-button-content">
+        <img src="images/catHead-80.jpg">
+        <h6>Pick a Cat</h6>
+      </div>
     </div>
-
+    <div class="nav toggleDisplay"></div>
     <div class="content"></div>
-
-    <script>
-    var cats = [{
-        'name': 'Alonzo',
-        'alt': 'the cat Alonzo sleeps on a dining table'
-    }, {
-        'name': 'Electra',
-        'alt': 'the cat Electra on duty near the gate'
-    }, {
-        'name': 'Endow',
-        'alt': 'the cat Endow eats with two other cats'
-    }, {
-        'name': 'Jemima',
-        'alt': 'the cat Endow stares right into another cat'
-    }, {
-        'name': 'Jessie',
-        'alt': 'the cat Jessie on bookshelf'
-    }];
-
-    cats.HTMLcatImg = 'img src="images/cat-720.jpg" srcset="images/cat-360.jpg 360w, images/cat-720.jpg 720w, images/cat-1440.jpg 1440w, images/cat-2880.jpg 2880w, images/cat-7360.jpg 7360w" sizes="(max-device-width: 480px) 90vw, 40vw"';
-
-    for (var i = 0; i < cats.length; i++) {
-        var formattedHTMLcatImg = '<' + cats.HTMLcatImg.replace(/cat/g, cats[i].name.toLowerCase()) + ' alt="' + cats[i].alt + '" ' +  'id="cat-img"' + '>';
-        var HTMLcatName = '<h1>' + cats[i].name + '</h1>';
-        var formattedHTMLcatDiv = '<div class="cat"><h1 id = "count-display" > 0 </h1>' + HTMLcatName + formattedHTMLcatImg +
-            '</div>';
-
-    $('.cat').each(function() {
-        var img = $(this).children('#cat-img');
-        var countDisplay = $(this).children('#count-display');
-        var count = 0;
-        img.click(function() {
-            count += 1;
-            countDisplay.text(count);
-        });
-    });
-    </script>
+    <script src="app.js"></script>
+  </div>
 </body>
+
 </html>
