@@ -21,9 +21,15 @@ var cats = {
   'catClicks': {}
 };
 
-cats.HTMLcatDiv = '<div class="cat" id="%lowerCaseName%"><h1 class="count-display"> 0 </h1><h3>%catName%</h3><img src="images/%lowerCaseName%-720.jpg" srcset="images/%lowerCaseName%-360.jpg 360w, images/%lowerCaseName%-720.jpg 720w, images/%lowerCaseName%-1440.jpg 1440w, images/%lowerCaseName%-2880.jpg 2880w, images/%lowerCaseName%-7360.jpg 7360w" sizes="(max-width: 480px) 90vw, 40vw" alt="%catAlt%" class="cat-img"></div>';
+cats.HTMLcatDiv = '<div class="cat" id="%lowerCaseName%">' +
+  '<h1 class="count-display"> 0 </h1><h3>%catName%</h3>' +
+  '<img src="images/%lowerCaseName%-720.jpg" srcset="images/%lowerCaseName%-360.jpg 360w, ' +
+  'images/%lowerCaseName%-720.jpg 720w, images/%lowerCaseName%-1440.jpg 1440w, ' +
+  'images/%lowerCaseName%-2880.jpg 2880w, images/%lowerCaseName%-7360.jpg 7360w" ' +
+  'sizes=" (max - width: 480 px) 90 vw, 40 vw " alt=" % catAlt % " class="cat-img">' + '</div>';
 
-cats.HTMLnavEntry = '<li class="nav-entry"><a href="#%lowerCaseName%"><h3>%data%</h3></a></li>';
+cats.HTMLnavEntry = '<li class="nav-entry">' +
+  '<a href="#%lowerCaseName%"><h3>%data%</h3></a></li>';
 
 for (var i = 0; i < cats.cats.length; i++) {
 
@@ -63,14 +69,16 @@ $('.nav-entry').each(function() {
       // ensures searching multiple levels by locating .cat and then using find
       // accomodates adding divs for styling
       // I made a mistake of using this instead of $(this)
-      // and i tried find the a while there's no links
+      // and i tried to find the a tag while there's no links
 
       // this part was initially outside of .each, where it won't work
       cats.catClicks[name] += 1;
+      // this class name is unqiue, so why not just select
+      // it from the whole file?
       $('.count-display').text(cats.catClicks[name]);
     });
   });
-  // Uses the fact that catId is the sames as complete internal
+  // Uses the fact that catId is the same as complete internal
   // href attritute, starting with #
   // var catId = $(this).children('a').attr('href');
 });
@@ -86,21 +94,6 @@ $('.cat').click(function() {
 
   cats.catClicks[catName] += 1;
   $(catId).children('.count-display').text(cats.catClicks[catName]);
-});
-*/
-
-
-/*
-$('.cat').each(function() {
-  var img = $(this).children('.cat-img');
-  var countDisplay = $(this).children('.count-display');
-  console.log(countDisplay);
-  var count = 0;
-  img.click(function() {
-    console.log('clicked');
-    count += 1;
-    countDisplay.text(count);
-  });
 });
 */
 
