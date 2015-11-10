@@ -20,7 +20,21 @@
     </div>
     <div class="nav toggleDisplay"></div>
     <div class="content"></div>
-    <script src="app.js"></script>
+    <script id='cat-div-template' type="text/template">
+      <!--  The replace was %catName in the first verion of original app.js-->
+      <!--  This is totally different-->
+      <div class="cat" id="%name%">
+        <h1 class="count">0</h1>
+        <h3>%uppedName%</h3>
+        <img src="images/%name%-720.jpg" srcset="images/%name%-360.jpg 360w, images/%name%-720.jpg 720w, images/%name%-1440.jpg 1440w, images/%name%-2880.jpg 2880w, images/%name%-7360.jpg 7360w" sizes=" (max-width: 480px) 90vw, 40vw" alt="%alt%" class="cat-img">
+      </div>
+    </script>
+    <script src="app.mvo.improved.js"></script>
+    <script>
+      $('.nav-button').click(function() {
+        $('.nav').toggleClass('toggleDisplay');
+      });
+    </script>
   </div>
 </body>
 

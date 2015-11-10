@@ -35,8 +35,9 @@ h6 {
   text-align: center;
 }
 .cat {
-  width: 40%;
+  width: 80%;
   display: inline-block;
+  float: right;
   margin-left: 4%;
   margin-right: 4%;
   text-align: center;
@@ -52,7 +53,7 @@ h3 {
   display: inline-block;
 }
 
-/* This enables the photos to enlarge or downsize when the device orientation is changed */
+/* This enables the photos to enlarge or downsize when the device orientation changes */
 
 /*.cat */
 img {
