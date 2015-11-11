@@ -36,7 +36,6 @@ h6 {
 }
 .cat {
   width: 80%;
-  display: inline-block;
   float: right;
   margin-left: 4%;
   margin-right: 4%;
@@ -55,15 +54,14 @@ h3 {
 
 /* This enables the photos to enlarge or downsize when the device orientation changes */
 
+
 /*.cat */
+
 img {
   width: 100%;
 }
 @media (max-width: 480px) {
   .cat {
-    width: 90%;
-    display: block;
-    margin: auto;
-    margin-bottom: 4%;
+    width: 70%;
   }
 }
