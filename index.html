@@ -1,41 +1,60 @@
 <!-- TODO: make sure that srcset doesn't have strange behavior -->
-<!-- TODO: make the onpage nav work -->
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title>Cat Clicker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>Cat Clicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="nav-button">
-      <div class="nav-button-content">
-        <img src="images/catHead-80.jpg">
-        <h6>Pick a Cat</h6>
-      </div>
+    <div class="container">
+        <div class='nav-container'>
+            <div class="nav-button">
+                <div class="nav-button-content">
+                    <img src="images/catHead-80.jpg">
+                    <h6>Pick a Cat</h6>
+                </div>
+            </div>
+            <div class="nav toggleDisplay"></div>
+        </div>
+        <div class="content"></div>
     </div>
-    <div class="nav toggleDisplay"></div>
-    <div class="content"></div>
+    <button id='adminButton'>Admin</button>
+    <form id="adminArea" class="toggleDisplay">
+        <label>Name:
+            <input type="text" id="newName" value="" />
+        </label>
+        <br />
+        <label>Url:
+            <input type="text" id="newUrl" value="" />
+        </label>
+        <br />
+        <label>Click count:
+            <input type="number" id="newCount" value="" />
+        </label>
+        <br />
+        <input type="reset" id="cancelButton" value="Cancel" />
+        <input type="submit" id="saveButton" value="Save" />
+    </form>
     <script id='cat-div-template' type="text/template">
-      <!--  The replace was %catName in the first verion of original app.js-->
-      <!--  This is totally different-->
-      <div class="cat" id="%name%">
-        <h1 class="count">0</h1>
-        <h3>%uppedName%</h3>
-        <img src="images/%name%-720.jpg" srcset="images/%name%-360.jpg 360w, images/%name%-720.jpg 720w, images/%name%-1440.jpg 1440w, images/%name%-2880.jpg 2880w, images/%name%-7360.jpg 7360w" sizes=" (max-width: 480px) 90vw, 40vw" alt="%alt%" class="cat-img">
-      </div>
+        <!--  The replace was %catName in the first verion of original app.js-->
+        <!--  This is totally different-->
+        <div class="cat" id="%name%">
+            <h1 class="count">0</h1>
+            <h3>%uppedName%</h3>
+            <img src="images/%name%-720.jpg" srcset="images/%name%-360.jpg 360w, images/%name%-720.jpg 720w, images/%name%-1440.jpg 1440w, images/%name%-2880.jpg 2880w, images/%name%-7360.jpg 7360w" sizes=" (max-width: 480px) 90vw, 40vw" alt="%alt%" class="cat-img">
+        </div>
     </script>
-    <script src="app.mvo.improved.js"></script>
+    <script src="app.mvo.improved.js">
+    </script>
     <script>
-      $('.nav-button').click(function() {
+    $('.nav-button').click(function() {
         $('.nav').toggleClass('toggleDisplay');
-      });
+    });
     </script>
-  </div>
 </body>
 
 </html>

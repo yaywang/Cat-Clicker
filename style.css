@@ -1,67 +1,86 @@
 body {
-  font-family: sans-serif;
-}
-li {
-  list-style: none;
-}
-.nav-button {
-  position: fixed;
-  top: 10px;
-  left: 4%;
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  opacity: 0.8;
-  text-align: center;
-}
-.nav-button-content {
-  width: 80px;
-  margin: auto;
-  margin-top: 5px;
-}
-h6 {
-  margin: 0;
-}
-.toggleDisplay {
-  display: none;
-}
-.nav {
-  position: fixed;
-  top: 110px;
-  left: 4%;
-  width: 100px;
-  background-color: white;
-  opacity: 0.8;
-  text-align: center;
-}
-.cat {
-  width: 80%;
-  float: right;
-  margin-left: 4%;
-  margin-right: 4%;
-  text-align: center;
+    font-family: sans-serif;
 }
 
-/* This places the cat name and count side by side */
+li {
+    list-style: none;
+}
+
+div,
+h1,`
+h3,
+h6,
+img,
+button,
+form,
+input {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+}
+
+.nav-container {
+    width: 100px;
+}
+
+.nav-button {
+    /* why inline-block doesn't work? */
+    /* display: inline-block; */
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.nav-button-content {
+    width: 80px;
+    margin: auto;
+    margin-top: 5px;
+}
+
+h6 {
+    margin: 0;
+}
+
+.toggleDisplay {
+    display: none;
+}
+
+.nav {
+    width: 100px;
+    background-color: white;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.content {
+    width: calc(100% - 100px);
+
+    text-align: center;
+}
+
+
+/* Places the cat name and count side by side */
 
 h1 {
-  display: inline-block;
+    display: inline-block;
 }
+
 h3 {
-  margin-left: 4%;
-  display: inline-block;
+    margin-left: 4%;
+    display: inline-block;
 }
-
-/* This enables the photos to enlarge or downsize when the device orientation changes */
-
-
-/*.cat */
 
 img {
-  width: 100%;
+    width: 100%;
 }
+
 @media (max-width: 480px) {
-  .cat {
-    width: 70%;
-  }
+    .cat {
+        width: 70%;
+    }
 }
