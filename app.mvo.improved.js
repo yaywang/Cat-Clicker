@@ -1,5 +1,8 @@
 'use strict';
-/* TODO: click the nav doesn't rest the nav that's already open */
+// TODO: no initial count input at initial adminView rendering. It should be 0
+// TODO: if you change the count input at initial adminView rendereing, it won't increase as the count in mainView increases
+// TODO: save button does nothing but reset the mainView to first cat at count 0.
+
 var model = {
     currentCat: null,
     cats: [{
@@ -25,7 +28,6 @@ var model = {
     }]
 };
 
-
 var octopus = {
     getAllCats: function() {
         return model.cats;
@@ -40,7 +42,7 @@ var octopus = {
         model.cats.push(model.currentCat);
         console.log(model.cats);
     },
-    ifCatAlive: function(questionedCat) {
+    ifCatDefined: function(questionedCat) {
         model.cats.forEach(function(cat) {
             if (questionedCat.name != cat.name) return false;
         });
@@ -49,7 +51,7 @@ var octopus = {
     countIncrementer: function() {
         model.currentCat.count += 1;
         mainView.render();
-        adminView.renderCount();
+        adminView.resetCount();
     },
     init: function() {
         this.setCurrentCat(model.cats[0]);
@@ -61,10 +63,10 @@ var octopus = {
 
 var navView = {
     init: function() {
-        // render first so the nav-entry is available.
+        /* render first so that the nav-entry is available. */
         this.render();
         $('#adminButton').click(function() {
-            //TODO: handle multiple clicks
+            //TODO: on the second click, this event shouldn't do anything
             adminView.init();
         });
     },
@@ -74,7 +76,7 @@ var navView = {
             $('.nav').append('<li class="nav-entry"><h3>' +
                 cat.name + '</h3></li>');
             $('.nav-entry:last').click(function() {
-                //TODO: closure issue?
+                //TODO: see why there isn't closure issue with the cat parameter
                 octopus.setCurrentCat(cat);
                 mainView.render();
                 adminView.resetInput();
@@ -94,52 +96,52 @@ var mainView = {
         catDiv = catDiv.replace('%uppedName%', currentCat.name);
         catDiv = catDiv.replace('%alt%', currentCat.alt);
         $('.content').html(catDiv);
-        // TODO: accomodate cat.url
+        // TODO: if there cat.url, cat-img should link to that
         $('.count').html(currentCat.count);
 
-        // this won't work if in init.
-        // TODO: verify the theory that it's because the class wasn't in DOM at mainView's init\
+        /* This won't work if in init.
+         * TODO: see if it's because the class wasn't in DOM at mainView's init
+         */
         $('.cat-img').click(function() {
             octopus.countIncrementer();
         });
     }
 };
 
-// ?? TOOD: cancel and save buttons behavior issue
+// TOOD: find out the cancel and save buttons behavior issue
 
 var adminView = {
     init: function() {
         this.render();
-        this.renderCount();
+        this.resetCount();
         this.resetInput();
     },
     resetInput: function() {
-        /* reset the text in input fields  to default*/
+        /* resets the text in input fields  to default*/
         var currentCat = octopus.getCurrentCat();
         $('#newName').attr('value', currentCat.name);
-        /* url property is not required; however, you have to type in one if you want your own cat*/
-        /* shows the set url if it exists, by default shows the generated standard url */
-        // TODO: debug this.
+        /* url property is not required for elements in model.cats; however, it's necessary if you want your own cat*/
+        /* shows the set url if it exists, then defaults to the generated standard url */
         if (currentCat.url) {
             $('#newUrl').attr('value', currentCat.url);
         } else {
             $('#newUrl').attr('value', '/images/' + currentCat.name.toLowerCase() + '-720.jpg');
         }
-        // $('#newCount').attr('value', currentCat.count);
-        this.renderCount();
+
+        /* this is separated from the reset function because countIncrementer should increase the count input value, but not reset other input values. */
+        this.resetCount();
     },
-    // TODO: the problem right now us that after saving, saving resets clicking to zero
     saveInput: function() {
         var newCat = {};
         var newName = $('#newName').attr('value').toLowerCase();
-        // make sure the newName is capitalized
+        /* makes sure the newName is capitalized */
         newName = newName.charAt(0).toUpperCase() + newName.slice(1);
 
         newCat.name = newName;
         newCat.count = $('#newCount').attr('value');
 
-        // cats initially defined shouldn't have a new url
-        if (!octopus.ifCatAlive(newCat)) {
+        /* cats initially defined shouldn't have a new url */
+        if (!octopus.ifCatDefined(newCat)) {
             newCat.url = $('#newUrl').attr('value');
             newCat.alt = 'This is your own cute cat!';
         }
@@ -147,10 +149,8 @@ var adminView = {
         octopus.setCurrentCat(newCat);
         octopus.addCurrentCat();
     },
-    renderCount: function() {
-        /* if the newCount has a different value than the count in mainView
-         * don't do anything.
-         */
+    resetCount: function() {
+        /* if the count input has a different value than the count in mainView, don't do anything.*/
         var currentCount = octopus.getCurrentCat().count;
         if (currentCount != $('#newCount').attr('value')) {
             $('#newCount').attr('value', currentCount);
