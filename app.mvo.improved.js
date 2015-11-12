@@ -1,7 +1,8 @@
 'use strict';
 // TODO: no initial count input at initial adminView rendering. It should be 0
-// TODO: if you change the count input at initial adminView rendereing, it won't increase as the count in mainView increases
+// TODO: if you change the count input at initial adminView rendering, it won't increase as the count in mainView increases
 // TODO: save button does nothing but reset the mainView to first cat at count 0.
+// TODO: cancel button doesn't work if you change currentCat.count
 
 var model = {
     currentCat: null,
@@ -40,7 +41,6 @@ var octopus = {
     },
     addCurrentCat: function() {
         model.cats.push(model.currentCat);
-        console.log(model.cats);
     },
     ifCatDefined: function(questionedCat) {
         model.cats.forEach(function(cat) {
@@ -54,8 +54,8 @@ var octopus = {
         adminView.resetCount();
     },
     init: function() {
-        this.setCurrentCat(model.cats[0]);
-        navView.init();
+        this.setCurrentCat(model.cats[0])
+        navView.init();;
         mainView.init();
     }
 };
@@ -96,7 +96,7 @@ var mainView = {
         catDiv = catDiv.replace('%uppedName%', currentCat.name);
         catDiv = catDiv.replace('%alt%', currentCat.alt);
         $('.content').html(catDiv);
-        // TODO: if there cat.url, cat-img should link to that
+        // TODO: if there is a cat.url, cat-img should link to that
         $('.count').html(currentCat.count);
 
         /* This won't work if in init.
@@ -113,7 +113,6 @@ var mainView = {
 var adminView = {
     init: function() {
         this.render();
-        this.resetCount();
         this.resetInput();
     },
     resetInput: function() {
@@ -130,6 +129,7 @@ var adminView = {
 
         /* this is separated from the reset function because countIncrementer should increase the count input value, but not reset other input values. */
         this.resetCount();
+        console.log('reset');
     },
     saveInput: function() {
         var newCat = {};
@@ -139,22 +139,25 @@ var adminView = {
 
         newCat.name = newName;
         newCat.count = $('#newCount').attr('value');
-
+        console.log(newCat.count);
         /* cats initially defined shouldn't have a new url */
         if (!octopus.ifCatDefined(newCat)) {
             newCat.url = $('#newUrl').attr('value');
             newCat.alt = 'This is your own cute cat!';
         }
-
         octopus.setCurrentCat(newCat);
         octopus.addCurrentCat();
     },
     resetCount: function() {
-        /* if the count input has a different value than the count in mainView, don't do anything.*/
-        var currentCount = octopus.getCurrentCat().count;
-        if (currentCount != $('#newCount').attr('value')) {
-            $('#newCount').attr('value', currentCount);
-        }
+        /* TODO: figure out if this is necessary:
+         * if the count input has a different value than the count in mainView, don't do anything.
+         */
+        var currentCat = octopus.getCurrentCat();
+        /* commenting this out solves the first TODO */
+        /*if (currentCat.count != $('#newCount').attr('value')) {
+            $('#newCount').attr('value', currentCat.count);
+        }*/
+        $('#newCount').attr('value', currentCat.count);
     },
     render: function() {
         $('#adminArea').toggleClass('toggleDisplay');
@@ -164,6 +167,9 @@ var adminView = {
         });
         $('#saveButton').click(function() {
             adminView.saveInput();
+            /* The log appears on console only for a second
+             * console.log(octopus.getCurrentCat());
+             */
             navView.render();
             mainView.render();
             $('#adminArea').toggleClass('toggleDisplay');
